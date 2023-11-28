@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
+    public GameObject DeadEffect;
+    
     [Header("�÷��̾� ����")]
     public float curLife;
     public float maxLife;
@@ -902,6 +905,11 @@ public class Player : MonoBehaviour
 
         if (curLife < 0)
         {
+            DeadEffect.transform.position = this.transform.position; 
+            DeadEffect.GetComponent<ParticleSystem>().Play();
+            JCanvas.Instance.DeadCanvas.SetActive(true);
+            JCanvas.Instance.InGameHPBar.GetComponent<CanvasGroup>().DOFade(0f, 0.5f);
+            JCanvas.Instance.PlayerDeadEvent();
             gameObject.SetActive(false);
         }
         yield return new WaitForSeconds(0.3f);

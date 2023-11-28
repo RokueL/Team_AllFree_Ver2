@@ -1540,6 +1540,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2595381680354639675, guid: 8ca0c94d9681a57419b417751d672fd6,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2937116700923922931, guid: 8ca0c94d9681a57419b417751d672fd6,
         type: 3}
       propertyPath: m_Name
@@ -1592,12 +1597,6 @@ MonoBehaviour:
 --- !u!1 &112585319 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6792040299169403761, guid: 8ca0c94d9681a57419b417751d672fd6,
-    type: 3}
-  m_PrefabInstance: {fileID: 112585315}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &112585320 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2937116700923922931, guid: 8ca0c94d9681a57419b417751d672fd6,
     type: 3}
   m_PrefabInstance: {fileID: 112585315}
   m_PrefabAsset: {fileID: 0}
@@ -3290,10 +3289,75 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1994609163201793435, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1258202880}
+    - target: {fileID: 1994609163201793435, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1258202880}
+    - target: {fileID: 1994609163201793435, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainButtonEnterEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994609163201793435, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ESCButtonExitEvent
+      objectReference: {fileID: 0}
     - target: {fileID: 2236786644798110329, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
         type: 3}
       propertyPath: m_Name
       value: DeadCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276355865269040861, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1258202880}
+    - target: {fileID: 2276355865269040861, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1258202880}
+    - target: {fileID: 2276355865269040861, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainButtonEnterEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276355865269040861, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainButtonExitEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 3488401835759488451, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1258202880}
+    - target: {fileID: 3488401835759488451, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291777150768796767, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1258202880}
+    - target: {fileID: 5291777150768796767, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameRestart
+      objectReference: {fileID: 0}
+    - target: {fileID: 5787871691391039612, guid: fb1edcf0ff03f054a9eedb5c12af7c71,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3519,6 +3583,12 @@ Transform:
   - {fileID: 1685470890}
   m_Father: {fileID: 368477689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &251470463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5323854015449538040, guid: d127b2de5c3f9ab47b558751e12ba802,
+    type: 3}
+  m_PrefabInstance: {fileID: 840942355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &258193347
 GameObject:
   m_ObjectHideFlags: 0
@@ -11385,6 +11455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef358a2df696ec4e820b4ee07c5a57a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeadEffect: {fileID: 251470463}
   curLife: 0
   maxLife: 0
   curCoolDown: 0
@@ -36310,7 +36381,7 @@ PrefabInstance:
         type: 3}
       propertyPath: InGameHPBar
       value: 
-      objectReference: {fileID: 112585320}
+      objectReference: {fileID: 112585319}
     - target: {fileID: 1391964168667550096, guid: 20d58c1b45b8f2744b3a72818385a368,
         type: 3}
       propertyPath: InGameCanvas
@@ -36320,7 +36391,7 @@ PrefabInstance:
         type: 3}
       propertyPath: InGameEndBtn
       value: 
-      objectReference: {fileID: 112585319}
+      objectReference: {fileID: 1014858942}
     - target: {fileID: 1391964168667550096, guid: 20d58c1b45b8f2744b3a72818385a368,
         type: 3}
       propertyPath: InGameSlider

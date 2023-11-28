@@ -10381,6 +10381,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: L_Dash
       objectReference: {fileID: 0}
+    - target: {fileID: 435804994468713223, guid: 6a0e6c197757e2e488ac895bbe213f74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7908418016526867677, guid: 6a0e6c197757e2e488ac895bbe213f74,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -44,12 +44,12 @@ public class Boss : Enemy
 
     public bool rageState;
 
-    [Header("°ø°Ý")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public CircleCollider2D Rolling;
     public BoxCollider2D EarthQuake;
     public BoxCollider2D Roar;
 
-    [Header("»ç¿îµå")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public AudioSource hitSound;
     public AudioSource dieSound;
     public AudioSource rollSound;
@@ -95,10 +95,13 @@ public class Boss : Enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+<<<<<<< Updated upstream
 
         roll = RollAttack();
         roar = RoarAttack();
         jump = JumpAttack();
+=======
+>>>>>>> Stashed changes
     }
     void OnEnable()
     {
@@ -140,6 +143,7 @@ public class Boss : Enemy
 
         if (Trigger.activeSelf == false&&!isAppear)
             StartCoroutine(Appear());
+        
     }
 
     //Start Setting
@@ -154,7 +158,9 @@ public class Boss : Enemy
         yield return new WaitForSeconds(2f);
 
         isStart = true;
-
+        
+        JCanvas.Instance.BossHPActive();
+        JCanvas.Instance.BossHPBarSet(this.maxHealth,this.health);
         StartCoroutine(Think());
     }
     IEnumerator LevelCheck()
@@ -461,9 +467,11 @@ public class Boss : Enemy
             hitSound.enabled = false;
             isHit = false;
             ReturnSprite(1f);
+            JCanvas.Instance.BossHPBarSet(this.maxHealth,this.health);
         }
         if (health <= 0)
         {
+            JCanvas.Instance.EndPortalActive();
             //Dead Animation
             if (!isDie)
             {
@@ -594,7 +602,7 @@ public class Boss : Enemy
     void OnTriggerEnter2D(Collider2D collision)
     {
         int ranHit = Random.Range(0, 3);
-        //ÇÃ·¹ÀÌ¾îÀÇ ¹«±â¿¡ °ø°Ý´çÇßÀ» ¶§ 
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
         if (collision.gameObject.tag == "PlayerAttack")
         {
             Player playerLogic = player.GetComponent<Player>();

@@ -27,9 +27,6 @@ public class EliteEnemy : Enemy
     public BoxCollider2D dig;
     public GameObject Trigger;
 
-    IEnumerator attack_co;
-    IEnumerator skill_co;
-
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -44,9 +41,7 @@ public class EliteEnemy : Enemy
 
         hitSound.volume = 0.8f;
         dieSound.volume = 0.8f;
-
-        attack_co = Attack();
-        skill_co = Skill();
+        
     }
     //체력설정
 
@@ -95,8 +90,8 @@ public class EliteEnemy : Enemy
     {
         if(isDie)
         {
-            StopCoroutine(skill_co);
-            StopCoroutine(attack_co);
+            StopCoroutine(Attack());
+            StopCoroutine(Skill());
         }
         dist = Vector2.Distance(player.transform.position, transform.position);
         MoveAnim();
@@ -214,6 +209,7 @@ public class EliteEnemy : Enemy
             yield break;
 
         int ranPattern = Random.Range(0, 2);
+        isHit = true;
         isAttack = true;
         switch (ranPattern)
         {
@@ -246,6 +242,8 @@ public class EliteEnemy : Enemy
                 yield return new WaitForSeconds(0.5f);
                 break;
         }
+        isHit = false;
+
     }
     IEnumerator Skill()
     {
@@ -253,6 +251,7 @@ public class EliteEnemy : Enemy
             yield break;
 
         isSkill = true;
+        isHit = true;
         gameManager.Spawn_Effect(transform.position+Vector3.down*3,0.5f);
         yield return null;
 
@@ -284,6 +283,7 @@ public class EliteEnemy : Enemy
         Physics2D.IgnoreLayerCollision(3, 8, false);
         rigid.gravityScale = 3;
         dig.enabled = false;
+        isHit = false;
         isSkill = false;
     }
 
@@ -302,6 +302,8 @@ public class EliteEnemy : Enemy
             //Dead Animation
             if (!isDie)
             {
+                StopCoroutine(Attack());
+                StopCoroutine(Skill());
                 dieSound.enabled = true;
                 anim.SetTrigger("doDie");
                 isDie = true;

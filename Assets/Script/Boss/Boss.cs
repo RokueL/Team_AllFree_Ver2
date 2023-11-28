@@ -59,10 +59,6 @@ public class Boss : Enemy
     public Enemy enemyScript;
     public GameObject Trigger;
     public GameObject roarReadyParticle;
-
-    IEnumerator roll;
-    IEnumerator roar;
-    IEnumerator jump;
     
     void Awake()
     {
@@ -95,10 +91,7 @@ public class Boss : Enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
-        roll = RollAttack();
-        roar = RoarAttack();
-        jump = JumpAttack();
+        
     }
     void OnEnable()
     {
@@ -132,9 +125,9 @@ public class Boss : Enemy
         }
         else if(isDie)
         {
-            StopCoroutine(roll);
-            StopCoroutine(roar);
-            StopCoroutine(jump);
+            StopCoroutine(RollAttack());
+            StopCoroutine(RoarAttack());
+            StopCoroutine(JumpAttack());
             DieSprite();
         }
 
@@ -296,6 +289,7 @@ public class Boss : Enemy
 
         dmg = rollDmg * 1.2f;
         isRolling = true;
+        isHit = true;
         isAttack = true;
         rollSound.enabled = true;
         anim.SetTrigger("StartRoll");
@@ -318,6 +312,7 @@ public class Boss : Enemy
         rollSound.enabled = false;
         dmg = rollDmg;
         Stun();
+        isHit = false;
         Rolling.enabled = false;
         yield return new WaitForSeconds(PatternDelay * 2);
 
@@ -327,6 +322,7 @@ public class Boss : Enemy
     //Scratch Attack
     IEnumerator RoarAttack()
     {
+        isHit = true;
         isAttack = true;
         roarReadyParticle.SetActive(true);
         anim.SetBool("isWalk", false);
@@ -346,6 +342,7 @@ public class Boss : Enemy
         Roar.enabled = false;
         yield return new WaitForSeconds(PatternDelay);
 
+        isHit = false;
         roarSound.enabled = false;
 
         StartCoroutine(Think());
@@ -354,6 +351,7 @@ public class Boss : Enemy
     //Jump Attack
     IEnumerator JumpAttack()
     {
+        isHit = true;
         isAttack = true;
         float Quakedmg=15;
         float curdmg=dmg;
@@ -376,6 +374,7 @@ public class Boss : Enemy
 
         yield return new WaitForSeconds(0.4f);
 
+        isHit = false;
         earthQuakeSound.enabled = false;
         StartCoroutine(Think());
     }
@@ -467,6 +466,9 @@ public class Boss : Enemy
             //Dead Animation
             if (!isDie)
             {
+                StopCoroutine(RollAttack());
+                StopCoroutine(RoarAttack());
+                StopCoroutine(JumpAttack());
                 anim.SetTrigger("doDie");
                 dieSound.enabled = true;
                 isDie = true;

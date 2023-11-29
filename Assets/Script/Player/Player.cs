@@ -1048,7 +1048,7 @@ public class Player : MonoBehaviour
 
         if(collision.gameObject.name=="EndPortal")
         {
-            JCanvas.Instance.OnGameEnd();
+            //JCanvas.Instance.OnGameEnd();
             isStart = false;
             Debug.Log("EndPortal");
         }

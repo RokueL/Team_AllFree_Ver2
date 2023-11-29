@@ -21,14 +21,13 @@ public class EliteEnemy : Enemy
 
     public AudioSource hitSound;
     public AudioSource dieSound;
+    public AudioSource digSound;
+    public AudioSource attSound;
 
     public BoxCollider2D attack;
     public BoxCollider2D double_Attack;
     public BoxCollider2D dig;
     public GameObject Trigger;
-
-    IEnumerator attack_co;
-    IEnumerator skill_co;
 
     void Awake()
     {
@@ -37,18 +36,12 @@ public class EliteEnemy : Enemy
         anim = GetComponent<Animator>();
 
         speed = 1.5f;
-        maxSkillDelay = 7f;
+        maxSkillDelay = 6f;
 
         forward = new Vector2(speed, rigid.velocity.y).normalized;
         maxAttackDelay = Random.Range(0.7f, 1.3f);
-
-        hitSound.volume = 0.8f;
-        dieSound.volume = 0.8f;
-
-        attack_co = Attack();
-        skill_co = Skill();
     }
-    //Ã¼·Â¼³Á¤
+    //Ã¼ï¿½Â¼ï¿½ï¿½ï¿½
 
     void OnEnable()
     {
@@ -95,15 +88,16 @@ public class EliteEnemy : Enemy
     {
         if(isDie)
         {
-            StopCoroutine(skill_co);
-            StopCoroutine(attack_co);
+            StopCoroutine(Attack());
+            StopCoroutine(Skill());
+            StopCoroutine(Think());
         }
         dist = Vector2.Distance(player.transform.position, transform.position);
         MoveAnim();
         WatchCheck();
         Follow();
         Move();
-        Think();
+        StartCoroutine(Think());
         //GroundCheck();
         if (isDie || isAttack || !isStart||isSkill)
             rigid.velocity = new Vector2(0,rigid.velocity.y);
@@ -114,8 +108,20 @@ public class EliteEnemy : Enemy
             curSkillDelay = 0;
         }
     }
+    
+    public void SoundSetting()
+    {
+        float value = JCanvas.Instance.SoundValue;
+        hitSound.volume = value;
+        dieSound.volume = value;
+        digSound.volume = value;
+        attSound.volume = value;
+
+    }
+    
     IEnumerator EliteStart()
     {
+        SoundSetting();
         Physics2D.IgnoreLayerCollision(8, 9, true);
         yield return new WaitForSeconds(0.8f);
 
@@ -192,8 +198,10 @@ public class EliteEnemy : Enemy
     }
 
     //Attack&Hit
-    void Think()
+    IEnumerator Think()
     {
+        yield return null;
+
         if (dist < 2)
         {
             curAttackDelay += Time.deltaTime;
@@ -207,6 +215,7 @@ public class EliteEnemy : Enemy
         }
         else
             curSkillDelay += Time.deltaTime;
+
     }
     IEnumerator Attack()
     {
@@ -214,6 +223,7 @@ public class EliteEnemy : Enemy
             yield break;
 
         int ranPattern = Random.Range(0, 2);
+        isHit = true;
         isAttack = true;
         switch (ranPattern)
         {
@@ -223,6 +233,7 @@ public class EliteEnemy : Enemy
                 yield return new WaitForSeconds(0.5f);
 
                 attack.enabled = true;
+                attSound.Play();
                 anim.SetTrigger("doAttack");
                 yield return new WaitForSeconds(0.5f);
 
@@ -237,8 +248,13 @@ public class EliteEnemy : Enemy
                 yield return new WaitForSeconds(0.5f);
 
                 double_Attack.enabled = true;
+                attSound.Play();
                 anim.SetTrigger("doDoubleAttack");
-                yield return new WaitForSeconds(0.5f);
+
+                yield return new WaitForSeconds(0.1f);
+
+                attSound.Play();
+                yield return new WaitForSeconds(0.4f);
 
                 isAttack = false;
                 double_Attack.enabled = false;
@@ -246,6 +262,8 @@ public class EliteEnemy : Enemy
                 yield return new WaitForSeconds(0.5f);
                 break;
         }
+        isHit = false;
+
     }
     IEnumerator Skill()
     {
@@ -253,6 +271,7 @@ public class EliteEnemy : Enemy
             yield break;
 
         isSkill = true;
+        isHit = true;
         gameManager.Spawn_Effect(transform.position+Vector3.down*3,0.5f);
         yield return null;
 
@@ -278,12 +297,15 @@ public class EliteEnemy : Enemy
         rigid.AddForce(Vector2.up * 40, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.1f);
 
+        digSound.Play();
+        gameManager.ShakeCam(0.6f,0.3f);
         spriteRenderer.color = new Color(1, 1, 1, 1);
         yield return new WaitForSeconds(0.4f);
 
         Physics2D.IgnoreLayerCollision(3, 8, false);
         rigid.gravityScale = 3;
         dig.enabled = false;
+        isHit = false;
         isSkill = false;
     }
 
@@ -293,7 +315,7 @@ public class EliteEnemy : Enemy
             yield break;
 
         isHit = true;
-        hitSound.enabled = true;
+        hitSound.Play();
         DamageLogic(dmg);
         ReturnSprite(0.5f);
 
@@ -302,7 +324,10 @@ public class EliteEnemy : Enemy
             //Dead Animation
             if (!isDie)
             {
-                dieSound.enabled = true;
+                StopCoroutine(Attack());
+                StopCoroutine(Skill());
+                StopCoroutine(Think());
+
                 anim.SetTrigger("doDie");
                 isDie = true;
                 yield return new WaitForSeconds(0.8f);
@@ -380,7 +405,6 @@ public class EliteEnemy : Enemy
                 gameObject.SetActive(false);
                 gameManager.CreateBoss();
                 gameManager.OffEliteRoom();
-                dieSound.enabled = false;
                 yield break;
             }
             else
@@ -388,7 +412,6 @@ public class EliteEnemy : Enemy
         }
         yield return new WaitForSeconds(1f);
 
-        hitSound.enabled = false;
         isHit = false;
         ReturnSprite(1f);
     }
@@ -399,7 +422,7 @@ public class EliteEnemy : Enemy
     void OnTriggerEnter2D(Collider2D collision)
     {
         int ranHit = Random.Range(0, 3);
-        //ÇÃ·¹ÀÌ¾îÀÇ ¹«±â¿¡ °ø°Ý´çÇßÀ» ¶§ 
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
         if (collision.gameObject.tag == "PlayerAttack")
         {
             Player playerLogic = player.GetComponent<Player>();

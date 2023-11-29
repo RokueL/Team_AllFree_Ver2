@@ -55,29 +55,15 @@ public class Boss : Enemy
     public AudioSource rollSound;
     public AudioSource roarSound;
     public AudioSource earthQuakeSound;
+    public AudioSource scalesSound;
+    public AudioSource explosion_1Sound;
+    public AudioSource explosion_2Sound;
 
     public Enemy enemyScript;
     public GameObject Trigger;
     public GameObject roarReadyParticle;
-
-    IEnumerator roll;
-    IEnumerator roar;
-    IEnumerator jump;
-    
     void Awake()
     {
-        hitSound.volume = 0.5f;
-        dieSound.volume = 0.5f;
-        rollSound.volume = 0.5f;
-        roarSound.volume = 0.5f;
-        earthQuakeSound.volume = 0.5f;
-
-        hitSound.enabled = false;
-        dieSound.enabled = false;
-        rollSound.enabled = false;
-        roarSound.enabled = false;
-        earthQuakeSound.enabled = false;
-        
         PatternDelay = 1.45f;
 
         normalScatchRatio = 7;
@@ -95,13 +81,6 @@ public class Boss : Enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-<<<<<<< Updated upstream
-
-        roll = RollAttack();
-        roar = RoarAttack();
-        jump = JumpAttack();
-=======
->>>>>>> Stashed changes
     }
     void OnEnable()
     {
@@ -135,32 +114,50 @@ public class Boss : Enemy
         }
         else if(isDie)
         {
-            StopCoroutine(roll);
-            StopCoroutine(roar);
-            StopCoroutine(jump);
+            StopCoroutine(RollAttack());
+            StopCoroutine(RoarAttack());
+            StopCoroutine(JumpAttack());
+            StopCoroutine(Think());
             DieSprite();
         }
 
         if (Trigger.activeSelf == false&&!isAppear)
             StartCoroutine(Appear());
-        
     }
 
+    public void SoundSetting()
+    {
+        float value = JCanvas.Instance.SoundValue;
+        hitSound.volume = value;
+        dieSound.volume = value;
+        rollSound.volume = value;
+        roarSound.volume = value;
+        earthQuakeSound.volume = value;
+        scalesSound.volume = value;
+        explosion_1Sound.volume = value;
+        explosion_2Sound.volume = value;
+
+    }
+    
     //Start Setting
     public IEnumerator Appear()
     {
+        SoundSetting();
+        JCanvas.Instance.BossHPBarSetting(this.maxHealth, this.health);
+        JCanvas.Instance.BossCanvasActive();
+        
         isAppear = true;
         anim.SetTrigger("Roar");
+        earthQuakeSound.Play();
+        roarSound.Play();
         gameManager.ShakeCam(1f,1f);
         yield return new WaitForSeconds(1f);
-
+        
         gameManager.DropDebris();
         yield return new WaitForSeconds(2f);
 
         isStart = true;
-        
-        JCanvas.Instance.BossHPActive();
-        JCanvas.Instance.BossHPBarSet(this.maxHealth,this.health);
+
         StartCoroutine(Think());
     }
     IEnumerator LevelCheck()
@@ -302,8 +299,9 @@ public class Boss : Enemy
 
         dmg = rollDmg * 1.2f;
         isRolling = true;
+        isHit = true;
         isAttack = true;
-        rollSound.enabled = true;
+        rollSound.Play();
         anim.SetTrigger("StartRoll");
         rigid.AddForce(Vector2.right * frontPos * -doReadyRoll + Vector2.up * doReadyRoll, ForceMode2D.Impulse);
 
@@ -321,9 +319,10 @@ public class Boss : Enemy
         yield return new WaitForSeconds(PatternDelay);
 
         anim.SetTrigger("EndRoll");
-        rollSound.enabled = false;
+        rollSound.Stop();
         dmg = rollDmg;
         Stun();
+        isHit = false;
         Rolling.enabled = false;
         yield return new WaitForSeconds(PatternDelay * 2);
 
@@ -333,13 +332,14 @@ public class Boss : Enemy
     //Scratch Attack
     IEnumerator RoarAttack()
     {
+        isHit = true;
         isAttack = true;
         roarReadyParticle.SetActive(true);
         anim.SetBool("isWalk", false);
-        roarSound.enabled = true;
+        roarSound.Play();
         yield return new WaitForSeconds(0.5f);
 
-        roarSound.volume = 1f;
+
         yield return new WaitForSeconds(PatternDelay);
 
         roarReadyParticle.SetActive(false);
@@ -352,7 +352,8 @@ public class Boss : Enemy
         Roar.enabled = false;
         yield return new WaitForSeconds(PatternDelay);
 
-        roarSound.enabled = false;
+        isHit = false;
+        roarSound.Stop();
 
         StartCoroutine(Think());
     }
@@ -360,6 +361,7 @@ public class Boss : Enemy
     //Jump Attack
     IEnumerator JumpAttack()
     {
+        isHit = true;
         isAttack = true;
         float Quakedmg=15;
         float curdmg=dmg;
@@ -370,19 +372,17 @@ public class Boss : Enemy
         rigid.AddForce(Vector2.up * 30, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f);
 
-        earthQuakeSound.enabled = true;
+        earthQuakeSound.Play();
         anim.SetTrigger("doLand");
         gameManager.DropDebris();
         gameManager.ShakeCam(1f,1f);
-        EarthQuake.enabled = true;
         yield return null;
 
-        EarthQuake.enabled = false;
         dmg = curdmg;
 
         yield return new WaitForSeconds(0.4f);
 
-        earthQuakeSound.enabled = false;
+        isHit = false;
         StartCoroutine(Think());
     }
 
@@ -411,6 +411,7 @@ public class Boss : Enemy
 
                 S_rigid.transform.Rotate(Vector3.forward *180 * (index/((scaleCount-1))));
                 S_rigid.AddForce(dirVec * 12, ForceMode2D.Impulse);
+                scalesSound.Play();
             }
         }
         curShotDelay = 0;
@@ -446,8 +447,7 @@ public class Boss : Enemy
         if (isHit)
             yield break;
 
-
-        hitSound.enabled = true;
+        hitSound.Play();
         if (health > 0)
         {
             isHit = true;
@@ -464,23 +464,112 @@ public class Boss : Enemy
             }
             yield return new WaitForSeconds(0.3f);
 
-            hitSound.enabled = false;
             isHit = false;
             ReturnSprite(1f);
-            JCanvas.Instance.BossHPBarSet(this.maxHealth,this.health);
+            JCanvas.Instance.BossHPBarSetting(this.maxHealth, this.health);
         }
         if (health <= 0)
         {
-            JCanvas.Instance.EndPortalActive();
             //Dead Animation
             if (!isDie)
             {
-                anim.SetTrigger("doDie");
-                dieSound.enabled = true;
-                isDie = true;
-                for(int index=0;index<21;index++)
-                {
+                StopCoroutine(RollAttack());
+                StopCoroutine(RoarAttack());
+                StopCoroutine(JumpAttack());
+                StopCoroutine(Think());
 
+                anim.SetTrigger("doDie");
+                anim.SetBool("isDie", true);
+                dieSound.Play();
+                isDie = true;
+                for(int index=0;index<5;index++)
+                {
+                    int ran_Exp = Random.Range(0, 2);
+                    switch (ran_Exp)
+                    {
+                        case 0:
+
+                            explosion_1Sound.Play();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Play();
+                            break;
+                    }
+                    Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    float ranPow = Random.Range(0.5f, 1.5f);
+                    gameManager.ShakeCam(ranPow, 0.09f);
+                    gameManager.Hit_Effect1(transform.position + ranVec_1, 0.5f);
+                    gameManager.Hit_Effect2(transform.position + ranVec_2, 0.5f);
+                    gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
+
+                    yield return new WaitForSeconds(0.6f);
+
+                    switch (ran_Exp)
+                    {
+                        case 0:
+
+                            explosion_1Sound.Stop();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Stop();
+                            break;
+                    }
+                }
+                for (int index = 0; index < 10; index++)
+                {
+                    int ran_Exp = Random.Range(0, 2);
+                    switch (ran_Exp)
+                    {
+                        case 0:
+
+                            explosion_1Sound.Play();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Play();
+                            break;
+                    }
+                    Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    float ranPow = Random.Range(0.5f, 1.5f);
+                    gameManager.ShakeCam(ranPow, 0.09f);
+                    gameManager.Hit_Effect1(transform.position + ranVec_1, 0.5f);
+                    gameManager.Hit_Effect2(transform.position + ranVec_2, 0.5f);
+                    gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
+
+                    yield return new WaitForSeconds(0.3f);
+
+                    switch (ran_Exp)
+                    {
+                        case 0:
+
+                            explosion_1Sound.Stop();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Stop();
+                            break;
+                    }
+                }
+                for (int index = 0; index < 15; index++)
+                {
+                    int ran_Exp = Random.Range(0, 2);
+                    switch (ran_Exp)
+                    {
+                        case 0:
+
+                            explosion_1Sound.Play();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Play();
+                            break;
+                    }
                     Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
@@ -491,7 +580,34 @@ public class Boss : Enemy
                     gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
 
                     yield return new WaitForSeconds(0.1f);
+
+                    if (index != 14)
+                    {
+                        switch (ran_Exp)
+                        {
+                            case 0:
+
+                                explosion_1Sound.Stop();
+                                break;
+                            case 1:
+
+                                explosion_2Sound.Stop();
+                                break;
+                        }
+                    }
                 }
+                for (int index = 0; index < 40; index++)
+                {
+                    float ranPower = Random.Range(10f, 18f);
+                    Vector2 ranVec = new Vector2(Random.Range(-1f, 1f), 0);
+                    GameObject Item = objectManager.MakeObj("gold");
+                    Item.transform.position = transform.position;
+
+                    Rigidbody2D Item_Rigid = Item.GetComponent<Rigidbody2D>();
+                    Item_Rigid.AddForce(ranVec * 2 + Vector2.up * ranPower, ForceMode2D.Impulse);
+                }
+
+                yield break;
             }
 
             ReturnSprite(0.3f);
@@ -562,6 +678,7 @@ public class Boss : Enemy
                 Rigidbody2D Item_Rigid = Item.GetComponent<Rigidbody2D>();
                 Item_Rigid.AddForce(ranVec * 2 + Vector2.up * 4, ForceMode2D.Impulse);
             }
+            JCanvas.Instance.BossCanvasUnActive();
         }
     }
     void ReturnSprite(float Alpha)

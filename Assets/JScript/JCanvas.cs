@@ -9,7 +9,6 @@ using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 using UnityEngine.UI;
 using Slider = UnityEngine.UI.Slider;
-using Toggle = UnityEngine.UI.Toggle;
 
 /// <summary>
 /// UI 관리를 위한 캔버스 스크립트이다
@@ -18,6 +17,8 @@ public class JCanvas : MonoBehaviour
 {
     public static JCanvas _instance;
     public static JCanvas Instance { get { return _instance; } }
+
+    public Player player;
     
     /// <summary> [게임 오브젝트] 메인 캔버스 </summary>
     [Header("메인화면 캔버스")]
@@ -58,13 +59,6 @@ public class JCanvas : MonoBehaviour
     [Header("인 게임 끝 버튼")]
     public GameObject InGameEndBtn;
 
-    /// <summary> [게임 오브젝트] 보스 HPbar 오브젝트 </summary>
-    [Header("인 게임 보스 체력 바")] 
-    public GameObject InGameBossHPBar;
-    /// <summary> [게임 오브젝트] 보스 HPbar 슬라이더 </summary>
-    [Header("인 게임 보스 체력 슬라이더")] 
-    public Slider InGameBossHPSlider;
-    
     /// <summary> [게임 오브젝트] HPbar 오브젝트 </summary>
     [Header("인 게임 체력 바")] 
     public GameObject InGameHPBar;
@@ -113,18 +107,13 @@ public class JCanvas : MonoBehaviour
     /// <summary> [사운드 변수] 사운드 크기 값 </summary>
     [Header("[사운드 변수]사운드 크기 값")]
     public float SoundValue;
-
-    [Header("[게임 오브젝트]엔드 포탈")] 
-    public GameObject EndPortal;
     
-    [Header("[게임 오브젝트]게임 엔드 캔버스")] 
-    public GameObject GameEndCanvas;
-
-    public GameObject HPBar;
-
-    public Toggle fullScreenToggle;
+    /// <summary> [게임 오브젝트]보스캔버스 </summary>
+    [Header("[게임 오브젝트]보스캔버스")]
+    public GameObject BossCanvas;
+    public Slider Bossslider;
     
-    private FullScreenMode screeMode;
+
 
     void Awake()
     {
@@ -163,7 +152,6 @@ public class JCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fullScreenToggle.isOn = Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow) ? true : false;
     }
 
     // Update is called once per frame
@@ -195,21 +183,25 @@ public class JCanvas : MonoBehaviour
 //==================================================================================
 //==================================================================================
 
-    public void EndPortalActive()
+    public void BossCanvasActive()
     {
-        EndPortal.SetActive(true);
-        EndPortal.GetComponent<ParticleSystem>().Play();
+        BossCanvas.GetComponent<CanvasGroup>().DOFade(1f, 3f);
+    }
+    
+    public void BossCanvasUnActive()
+    {
+        BossCanvas.GetComponent<CanvasGroup>().DOFade(0f, 1f);
+    }
+    public void BossHPBarSetting(float Max, float Cur)
+    {
+        Bossslider.value = Cur / Max;
     }
 
-    public void BossHPActive()
+    public void OnActiveSetting()
     {
-        InGameBossHPBar.GetComponent<CanvasGroup>().DOFade(1f, 1f);
+        
     }
-
-    public void BossHPBarSet(float Max, float Cur)
-    {
-        InGameBossHPSlider.value = Cur / Max;
-    }
+    
 
     public void HPBarSet(float Max, float Cur)
     {
@@ -224,17 +216,11 @@ public class JCanvas : MonoBehaviour
     public void SelectResolution(int x)
     {
         nResolutionNum = x;
-        ChangeResoultion();
-    }
-
-    public void FullScreenToggle(bool isFull)
-    {
-        screeMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
     }
 
     public void ChangeResoultion()
     {
-        Screen.SetResolution(resolutions[nResolutionNum-1].width,resolutions[nResolutionNum-1].height, screeMode);
+        Screen.SetResolution(resolutions[nResolutionNum].width,resolutions[nResolutionNum].height,FullScreenMode.FullScreenWindow);
     }
 
     public void PlayerDead()
@@ -249,6 +235,7 @@ public class JCanvas : MonoBehaviour
         InGameSlider.value = SoundValue;
         MainBGM.volume = SoundValue;
         PointEnter.volume = SoundValue;
+        player.SoundSetting(SoundValue);
     }
 
     public void GameEnd()
@@ -269,12 +256,7 @@ public class JCanvas : MonoBehaviour
 //==================================================================================
 //==================================================================================
 
-    public void OnGameEnd()
-    {
-        HPBar.SetActive(false);
-        GameEndCanvas.SetActive(true);
-        GameEndCanvas.GetComponent<CanvasGroup>().DOFade(1f, 1f);
-    }
+
 
 
     /// <summary> 시작 버튼 이벤트 </summary>

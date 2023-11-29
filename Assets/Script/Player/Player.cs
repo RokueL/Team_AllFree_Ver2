@@ -141,6 +141,7 @@ public class Player : MonoBehaviour
     public AudioSource summonAttackSound;
     public AudioSource healSound;
     public AudioSource weaponChangeSound;
+    public AudioSource coinSound;
 
     Animator anim;
     SpriteRenderer spriteRenderer;
@@ -188,19 +189,23 @@ public class Player : MonoBehaviour
         equipDrop = true;
         equipSummon = true;
         anim.SetBool("isLieDown", true);
+    }
 
-        walkSound.volume = 0.7f;
-        jumpSound.volume = 0.7f;
-        HitSound_1.volume = 0.7f;
-        HitSound_2.volume = 0.7f;
-        HitSound_3.volume = 0.7f;
-        meleeAttackSound.volume = 0.7f;
-        crouchAttackSound.volume = 0.7f;
-        rollAttackSound.volume = 0.7f;
-        dropAttackSound.volume = 0.7f;
-        summonAttackSound.volume = 0.7f;
-        healSound.volume = 0.7f;
-        weaponChangeSound.volume = 0.7f;
+    public void SoundSetting(float soundValue)
+    {
+        walkSound.volume = soundValue;
+        jumpSound.volume = soundValue;
+        HitSound_1.volume = soundValue;
+        HitSound_2.volume = soundValue;
+        HitSound_3.volume = soundValue;
+        meleeAttackSound.volume = soundValue;
+        crouchAttackSound.volume = soundValue;
+        rollAttackSound.volume = soundValue;
+        dropAttackSound.volume = soundValue;
+        summonAttackSound.volume = soundValue;
+        healSound.volume = soundValue;
+        weaponChangeSound.volume = soundValue;
+        coinSound.volume = soundValue;
     }
     void Update()
     {
@@ -312,14 +317,12 @@ public class Player : MonoBehaviour
     {
         if (rigid.velocity.y == 0)
         {
-            jumpSound.enabled = false;
             isGround = true;
             jumping = false;
         }
         if (isJump && jumping)
         {
-            jumpSound.enabled = false;
-            jumpSound.enabled = true;
+            jumpSound.Play();
 
             anim.SetTrigger("doJump");
             rigid.velocity = new Vector2(rigid.velocity.x, 0f);
@@ -328,7 +331,7 @@ public class Player : MonoBehaviour
         }
         if (isJump && isGround)
         {
-            jumpSound.enabled = true;
+            jumpSound.Play();
             anim.SetTrigger("doJump");
             rigid.velocity = new Vector2(rigid.velocity.x, 0f);
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
@@ -345,7 +348,7 @@ public class Player : MonoBehaviour
         if (isBoss || !isAtt)
             yield break;
 
-        meleeAttackSound.enabled = true;
+        meleeAttackSound.Play();
         meleeAttack.enabled = true;
         anim.SetTrigger("doAttack");
         yield return new WaitForSeconds(0.1f);
@@ -353,10 +356,6 @@ public class Player : MonoBehaviour
         meleeAttack.enabled = false;
         isAtt = false;
         curAttackDelay = 0;
-
-        yield return new WaitForSeconds(0.4f);
-
-        meleeAttackSound.enabled = false;
     }
 
     //��ų
@@ -406,9 +405,9 @@ public class Player : MonoBehaviour
                 {
                     isHit = false;
                     isCrouch = false;
-                    crouchAttackSound.enabled = false;
                     anim.SetBool("isLieDown", false);
                     crouchParticle.SetActive(false);
+                    crouchAttackSound.enabled = false;
                     Physics2D.IgnoreLayerCollision(6, 7, false);
                 }
                 break;
@@ -454,10 +453,7 @@ public class Player : MonoBehaviour
             followCount++;
             gameManager.FollowerSpawn();
             maxLife -= hpDecrease;
-            summonAttackSound.enabled = true;
-            yield return new WaitForSeconds(2f);
-
-            summonAttackSound.enabled = false;
+            summonAttackSound.Play();
         }
 
     }
@@ -476,15 +472,14 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
             dropParticle.SetActive(true);
-            dropAttackSound.enabled = true;
             dropAttack.enabled = true;
+            dropAttackSound.Play();
             yield return new WaitForSeconds(0.2f);
 
             dropAttack.enabled = false;
             yield return new WaitForSeconds(0.3f);
 
             dropParticle.SetActive(false);
-            dropAttackSound.enabled = false;
         }
         yield return null;
     }
@@ -540,8 +535,8 @@ public class Player : MonoBehaviour
     {
         if (Q_IsSwitch)
         {
-            weaponChangeSound.enabled = true;
             coreChangeParticle.SetActive(true);
+            weaponChangeSound.Play();
             int num;
             //4�� �����
             if (equipCount == 4)
@@ -749,7 +744,6 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             coreChangeParticle.SetActive(false);
-            weaponChangeSound.enabled = false;
             Q_IsSwitch = false;
         }
     }
@@ -867,12 +861,11 @@ public class Player : MonoBehaviour
         curLife += 100;
         maxLife += 100;
         healingParticle.SetActive(true);
-        healSound.enabled = true;
+        healSound.Play();
 
         yield return new WaitForSeconds(1f);
 
         healingParticle.SetActive(false);
-        healSound.enabled = false;
         isCheat = false;
     }
 
@@ -886,13 +879,13 @@ public class Player : MonoBehaviour
         switch(ranSound)
         {
             case 0:
-                HitSound_1.enabled = true;
+                HitSound_1.Play();
                 break;
             case 1:
-                HitSound_2.enabled = true;
+                HitSound_2.Play();
                 break;
             case 2:
-                HitSound_3.enabled = true;
+                HitSound_3.Play();
                 break;
         }
 
@@ -914,9 +907,6 @@ public class Player : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
 
-        HitSound_1.enabled = false;
-        HitSound_2.enabled = false;
-        HitSound_3.enabled = false;
         isHit = false;
         ReturnSprite(1f);
     }
@@ -969,6 +959,7 @@ public class Player : MonoBehaviour
             {
                 case Item.ItemType.Coin:
                     sacrifice += 1;
+                    coinSound.Play();
                     break;
 
                 case Item.ItemType.Core:

@@ -60,11 +60,6 @@ public class Boss : Enemy
     public Enemy enemyScript;
     public GameObject Trigger;
     public GameObject roarReadyParticle;
-<<<<<<< Updated upstream
-    
-=======
-
->>>>>>> Stashed changes
     void Awake()
     {
         PatternDelay = 1.45f;
@@ -84,10 +79,6 @@ public class Boss : Enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-<<<<<<< Updated upstream
-        
-=======
->>>>>>> Stashed changes
     }
     void OnEnable()
     {
@@ -124,10 +115,7 @@ public class Boss : Enemy
             StopCoroutine(RollAttack());
             StopCoroutine(RoarAttack());
             StopCoroutine(JumpAttack());
-<<<<<<< Updated upstream
-=======
             StopCoroutine(Think());
->>>>>>> Stashed changes
             DieSprite();
         }
 
@@ -344,12 +332,8 @@ public class Boss : Enemy
         Roar.enabled = false;
         yield return new WaitForSeconds(PatternDelay);
 
-<<<<<<< Updated upstream
         isHit = false;
-        roarSound.enabled = false;
-=======
         roarSound.Stop();
->>>>>>> Stashed changes
 
         StartCoroutine(Think());
     }
@@ -372,20 +356,13 @@ public class Boss : Enemy
         anim.SetTrigger("doLand");
         gameManager.DropDebris();
         gameManager.ShakeCam(1f,1f);
-        EarthQuake.enabled = true;
         yield return null;
 
-        EarthQuake.enabled = false;
         dmg = curdmg;
 
         yield return new WaitForSeconds(0.4f);
 
-<<<<<<< Updated upstream
         isHit = false;
-        earthQuakeSound.enabled = false;
-=======
-
->>>>>>> Stashed changes
         StartCoroutine(Think());
     }
 
@@ -478,11 +455,8 @@ public class Boss : Enemy
                 StopCoroutine(RollAttack());
                 StopCoroutine(RoarAttack());
                 StopCoroutine(JumpAttack());
-<<<<<<< Updated upstream
-=======
                 StopCoroutine(Think());
 
->>>>>>> Stashed changes
                 anim.SetTrigger("doDie");
                 dieSound.Play();
                 isDie = true;

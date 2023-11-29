@@ -27,10 +27,7 @@ public class EliteEnemy : Enemy
     public BoxCollider2D double_Attack;
     public BoxCollider2D dig;
     public GameObject Trigger;
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -42,13 +39,6 @@ public class EliteEnemy : Enemy
 
         forward = new Vector2(speed, rigid.velocity.y).normalized;
         maxAttackDelay = Random.Range(0.7f, 1.3f);
-<<<<<<< Updated upstream
-
-        hitSound.volume = 0.8f;
-        dieSound.volume = 0.8f;
-        
-=======
->>>>>>> Stashed changes
     }
     //체력설정
 
@@ -99,10 +89,7 @@ public class EliteEnemy : Enemy
         {
             StopCoroutine(Attack());
             StopCoroutine(Skill());
-<<<<<<< Updated upstream
-=======
             StopCoroutine(Think());
->>>>>>> Stashed changes
         }
         dist = Vector2.Distance(player.transform.position, transform.position);
         MoveAnim();
@@ -318,18 +305,10 @@ public class EliteEnemy : Enemy
             //Dead Animation
             if (!isDie)
             {
-<<<<<<< Updated upstream
-                StopCoroutine(Attack());
-                StopCoroutine(Skill());
-                dieSound.enabled = true;
-=======
-
                 StopCoroutine(Attack());
                 StopCoroutine(Skill());
                 StopCoroutine(Think());
 
-                dieSound.Play();
->>>>>>> Stashed changes
                 anim.SetTrigger("doDie");
                 isDie = true;
                 yield return new WaitForSeconds(0.8f);

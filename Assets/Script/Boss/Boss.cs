@@ -56,6 +56,8 @@ public class Boss : Enemy
     public AudioSource roarSound;
     public AudioSource earthQuakeSound;
     public AudioSource scalesSound;
+    public AudioSource explosion_1Sound;
+    public AudioSource explosion_2Sound;
 
     public Enemy enemyScript;
     public GameObject Trigger;
@@ -458,11 +460,23 @@ public class Boss : Enemy
                 StopCoroutine(Think());
 
                 anim.SetTrigger("doDie");
+                anim.SetBool("isDie", true);
                 dieSound.Play();
                 isDie = true;
                 for(int index=0;index<5;index++)
                 {
+                    int ran_Exp = Random.Range(0, 2);
+                    switch (ran_Exp)
+                    {
+                        case 0:
 
+                            explosion_1Sound.Play();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Play();
+                            break;
+                    }
                     Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
@@ -473,10 +487,33 @@ public class Boss : Enemy
                     gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
 
                     yield return new WaitForSeconds(0.6f);
+
+                    switch (ran_Exp)
+                    {
+                        case 0:
+
+                            explosion_1Sound.Stop();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Stop();
+                            break;
+                    }
                 }
                 for (int index = 0; index < 10; index++)
                 {
+                    int ran_Exp = Random.Range(0, 2);
+                    switch (ran_Exp)
+                    {
+                        case 0:
 
+                            explosion_1Sound.Play();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Play();
+                            break;
+                    }
                     Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
@@ -487,10 +524,33 @@ public class Boss : Enemy
                     gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
 
                     yield return new WaitForSeconds(0.3f);
+
+                    switch (ran_Exp)
+                    {
+                        case 0:
+
+                            explosion_1Sound.Stop();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Stop();
+                            break;
+                    }
                 }
                 for (int index = 0; index < 15; index++)
                 {
+                    int ran_Exp = Random.Range(0, 2);
+                    switch (ran_Exp)
+                    {
+                        case 0:
 
+                            explosion_1Sound.Play();
+                            break;
+                        case 1:
+
+                            explosion_2Sound.Play();
+                            break;
+                    }
                     Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
                     Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
@@ -502,17 +562,30 @@ public class Boss : Enemy
 
                     yield return new WaitForSeconds(0.1f);
 
+                    if (index != 14)
+                    {
+                        switch (ran_Exp)
+                        {
+                            case 0:
+
+                                explosion_1Sound.Stop();
+                                break;
+                            case 1:
+
+                                explosion_2Sound.Stop();
+                                break;
+                        }
+                    }
                 }
                 for (int index = 0; index < 40; index++)
                 {
-                    int ranPower = Random.Range(12, 18);
+                    float ranPower = Random.Range(10f, 18f);
                     Vector2 ranVec = new Vector2(Random.Range(-1f, 1f), 0);
                     GameObject Item = objectManager.MakeObj("gold");
                     Item.transform.position = transform.position;
 
                     Rigidbody2D Item_Rigid = Item.GetComponent<Rigidbody2D>();
                     Item_Rigid.AddForce(ranVec * 2 + Vector2.up * ranPower, ForceMode2D.Impulse);
-
                 }
 
                 yield break;

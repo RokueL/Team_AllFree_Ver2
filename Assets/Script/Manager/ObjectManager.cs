@@ -89,7 +89,7 @@ public class ObjectManager : MonoBehaviour
 
     void Awake()
     {
-        ground_Effect = new GameObject[15];
+        ground_Effect = new GameObject[25];
         spawn_Effect = new GameObject[5];
         roar_Effect = new GameObject[5];
 

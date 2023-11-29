@@ -22,6 +22,7 @@ public class EliteEnemy : Enemy
     public AudioSource hitSound;
     public AudioSource dieSound;
     public AudioSource digSound;
+    public AudioSource attSound;
 
     public BoxCollider2D attack;
     public BoxCollider2D double_Attack;
@@ -35,7 +36,7 @@ public class EliteEnemy : Enemy
         anim = GetComponent<Animator>();
 
         speed = 1.5f;
-        maxSkillDelay = 7f;
+        maxSkillDelay = 6f;
 
         forward = new Vector2(speed, rigid.velocity.y).normalized;
         maxAttackDelay = Random.Range(0.7f, 1.3f);
@@ -220,6 +221,7 @@ public class EliteEnemy : Enemy
                 yield return new WaitForSeconds(0.5f);
 
                 attack.enabled = true;
+                attSound.Play();
                 anim.SetTrigger("doAttack");
                 yield return new WaitForSeconds(0.5f);
 
@@ -234,8 +236,13 @@ public class EliteEnemy : Enemy
                 yield return new WaitForSeconds(0.5f);
 
                 double_Attack.enabled = true;
+                attSound.Play();
                 anim.SetTrigger("doDoubleAttack");
-                yield return new WaitForSeconds(0.5f);
+
+                yield return new WaitForSeconds(0.1f);
+
+                attSound.Play();
+                yield return new WaitForSeconds(0.4f);
 
                 isAttack = false;
                 double_Attack.enabled = false;

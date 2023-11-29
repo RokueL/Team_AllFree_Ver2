@@ -41,7 +41,7 @@ public class EliteEnemy : Enemy
         forward = new Vector2(speed, rigid.velocity.y).normalized;
         maxAttackDelay = Random.Range(0.7f, 1.3f);
     }
-    //Ã¼·Â¼³Á¤
+    //Ã¼ï¿½Â¼ï¿½ï¿½ï¿½
 
     void OnEnable()
     {
@@ -108,8 +108,20 @@ public class EliteEnemy : Enemy
             curSkillDelay = 0;
         }
     }
+    
+    public void SoundSetting()
+    {
+        float value = JCanvas.Instance.SoundValue;
+        hitSound.volume = value;
+        dieSound.volume = value;
+        digSound.volume = value;
+        attSound.volume = value;
+
+    }
+    
     IEnumerator EliteStart()
     {
+        SoundSetting();
         Physics2D.IgnoreLayerCollision(8, 9, true);
         yield return new WaitForSeconds(0.8f);
 
@@ -410,7 +422,7 @@ public class EliteEnemy : Enemy
     void OnTriggerEnter2D(Collider2D collision)
     {
         int ranHit = Random.Range(0, 3);
-        //ÇÃ·¹ÀÌ¾îÀÇ ¹«±â¿¡ °ø°Ý´çÇßÀ» ¶§ 
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
         if (collision.gameObject.tag == "PlayerAttack")
         {
             Player playerLogic = player.GetComponent<Player>();

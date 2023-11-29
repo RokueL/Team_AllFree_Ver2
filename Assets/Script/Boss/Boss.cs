@@ -44,12 +44,12 @@ public class Boss : Enemy
 
     public bool rageState;
 
-    [Header("°ø°Ý")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public CircleCollider2D Rolling;
     public BoxCollider2D EarthQuake;
     public BoxCollider2D Roar;
 
-    [Header("»ç¿îµå")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public AudioSource hitSound;
     public AudioSource dieSound;
     public AudioSource rollSound;
@@ -125,16 +125,34 @@ public class Boss : Enemy
             StartCoroutine(Appear());
     }
 
+    public void SoundSetting()
+    {
+        float value = JCanvas.Instance.SoundValue;
+        hitSound.volume = value;
+        dieSound.volume = value;
+        rollSound.volume = value;
+        roarSound.volume = value;
+        earthQuakeSound.volume = value;
+        scalesSound.volume = value;
+        explosion_1Sound.volume = value;
+        explosion_2Sound.volume = value;
+
+    }
+    
     //Start Setting
     public IEnumerator Appear()
     {
+        SoundSetting();
+        JCanvas.Instance.BossHPBarSetting(this.maxHealth, this.health);
+        JCanvas.Instance.BossCanvasActive();
+        
         isAppear = true;
         anim.SetTrigger("Roar");
         earthQuakeSound.Play();
         roarSound.Play();
         gameManager.ShakeCam(1f,1f);
         yield return new WaitForSeconds(1f);
-
+        
         gameManager.DropDebris();
         yield return new WaitForSeconds(2f);
 
@@ -448,6 +466,7 @@ public class Boss : Enemy
 
             isHit = false;
             ReturnSprite(1f);
+            JCanvas.Instance.BossHPBarSetting(this.maxHealth, this.health);
         }
         if (health <= 0)
         {
@@ -659,6 +678,7 @@ public class Boss : Enemy
                 Rigidbody2D Item_Rigid = Item.GetComponent<Rigidbody2D>();
                 Item_Rigid.AddForce(ranVec * 2 + Vector2.up * 4, ForceMode2D.Impulse);
             }
+            JCanvas.Instance.BossCanvasUnActive();
         }
     }
     void ReturnSprite(float Alpha)
@@ -699,7 +719,7 @@ public class Boss : Enemy
     void OnTriggerEnter2D(Collider2D collision)
     {
         int ranHit = Random.Range(0, 3);
-        //ÇÃ·¹ÀÌ¾îÀÇ ¹«±â¿¡ °ø°Ý´çÇßÀ» ¶§ 
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
         if (collision.gameObject.tag == "PlayerAttack")
         {
             Player playerLogic = player.GetComponent<Player>();

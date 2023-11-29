@@ -190,6 +190,23 @@ public class Player : MonoBehaviour
         equipSummon = true;
         anim.SetBool("isLieDown", true);
     }
+
+    public void SoundSetting(float soundValue)
+    {
+        walkSound.volume = soundValue;
+        jumpSound.volume = soundValue;
+        HitSound_1.volume = soundValue;
+        HitSound_2.volume = soundValue;
+        HitSound_3.volume = soundValue;
+        meleeAttackSound.volume = soundValue;
+        crouchAttackSound.volume = soundValue;
+        rollAttackSound.volume = soundValue;
+        dropAttackSound.volume = soundValue;
+        summonAttackSound.volume = soundValue;
+        healSound.volume = soundValue;
+        weaponChangeSound.volume = soundValue;
+        coinSound.volume = soundValue;
+    }
     void Update()
     {
         InPut();

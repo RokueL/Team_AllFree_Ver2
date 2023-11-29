@@ -17,6 +17,8 @@ public class JCanvas : MonoBehaviour
 {
     public static JCanvas _instance;
     public static JCanvas Instance { get { return _instance; } }
+
+    public Player player;
     
     /// <summary> [게임 오브젝트] 메인 캔버스 </summary>
     [Header("메인화면 캔버스")]
@@ -106,6 +108,11 @@ public class JCanvas : MonoBehaviour
     [Header("[사운드 변수]사운드 크기 값")]
     public float SoundValue;
     
+    /// <summary> [게임 오브젝트]보스캔버스 </summary>
+    [Header("[게임 오브젝트]보스캔버스")]
+    public GameObject BossCanvas;
+    public Slider Bossslider;
+    
 
 
     void Awake()
@@ -176,6 +183,20 @@ public class JCanvas : MonoBehaviour
 //==================================================================================
 //==================================================================================
 
+    public void BossCanvasActive()
+    {
+        BossCanvas.GetComponent<CanvasGroup>().DOFade(1f, 3f);
+    }
+    
+    public void BossCanvasUnActive()
+    {
+        BossCanvas.GetComponent<CanvasGroup>().DOFade(0f, 1f);
+    }
+    public void BossHPBarSetting(float Max, float Cur)
+    {
+        Bossslider.value = Cur / Max;
+    }
+
     public void OnActiveSetting()
     {
         
@@ -214,6 +235,7 @@ public class JCanvas : MonoBehaviour
         InGameSlider.value = SoundValue;
         MainBGM.volume = SoundValue;
         PointEnter.volume = SoundValue;
+        player.SoundSetting(SoundValue);
     }
 
     public void GameEnd()

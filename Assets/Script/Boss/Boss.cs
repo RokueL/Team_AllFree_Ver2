@@ -55,25 +55,18 @@ public class Boss : Enemy
     public AudioSource rollSound;
     public AudioSource roarSound;
     public AudioSource earthQuakeSound;
+    public AudioSource scalesSound;
 
     public Enemy enemyScript;
     public GameObject Trigger;
     public GameObject roarReadyParticle;
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
     void Awake()
     {
-        hitSound.volume = 0.5f;
-        dieSound.volume = 0.5f;
-        rollSound.volume = 0.5f;
-        roarSound.volume = 0.5f;
-        earthQuakeSound.volume = 0.5f;
-
-        hitSound.enabled = false;
-        dieSound.enabled = false;
-        rollSound.enabled = false;
-        roarSound.enabled = false;
-        earthQuakeSound.enabled = false;
-        
         PatternDelay = 1.45f;
 
         normalScatchRatio = 7;
@@ -91,7 +84,10 @@ public class Boss : Enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
     }
     void OnEnable()
     {
@@ -128,6 +124,10 @@ public class Boss : Enemy
             StopCoroutine(RollAttack());
             StopCoroutine(RoarAttack());
             StopCoroutine(JumpAttack());
+<<<<<<< Updated upstream
+=======
+            StopCoroutine(Think());
+>>>>>>> Stashed changes
             DieSprite();
         }
 
@@ -140,6 +140,8 @@ public class Boss : Enemy
     {
         isAppear = true;
         anim.SetTrigger("Roar");
+        earthQuakeSound.Play();
+        roarSound.Play();
         gameManager.ShakeCam(1f,1f);
         yield return new WaitForSeconds(1f);
 
@@ -291,7 +293,7 @@ public class Boss : Enemy
         isRolling = true;
         isHit = true;
         isAttack = true;
-        rollSound.enabled = true;
+        rollSound.Play();
         anim.SetTrigger("StartRoll");
         rigid.AddForce(Vector2.right * frontPos * -doReadyRoll + Vector2.up * doReadyRoll, ForceMode2D.Impulse);
 
@@ -309,7 +311,7 @@ public class Boss : Enemy
         yield return new WaitForSeconds(PatternDelay);
 
         anim.SetTrigger("EndRoll");
-        rollSound.enabled = false;
+        rollSound.Stop();
         dmg = rollDmg;
         Stun();
         isHit = false;
@@ -326,10 +328,10 @@ public class Boss : Enemy
         isAttack = true;
         roarReadyParticle.SetActive(true);
         anim.SetBool("isWalk", false);
-        roarSound.enabled = true;
+        roarSound.Play();
         yield return new WaitForSeconds(0.5f);
 
-        roarSound.volume = 1f;
+
         yield return new WaitForSeconds(PatternDelay);
 
         roarReadyParticle.SetActive(false);
@@ -342,8 +344,12 @@ public class Boss : Enemy
         Roar.enabled = false;
         yield return new WaitForSeconds(PatternDelay);
 
+<<<<<<< Updated upstream
         isHit = false;
         roarSound.enabled = false;
+=======
+        roarSound.Stop();
+>>>>>>> Stashed changes
 
         StartCoroutine(Think());
     }
@@ -362,7 +368,7 @@ public class Boss : Enemy
         rigid.AddForce(Vector2.up * 30, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f);
 
-        earthQuakeSound.enabled = true;
+        earthQuakeSound.Play();
         anim.SetTrigger("doLand");
         gameManager.DropDebris();
         gameManager.ShakeCam(1f,1f);
@@ -374,8 +380,12 @@ public class Boss : Enemy
 
         yield return new WaitForSeconds(0.4f);
 
+<<<<<<< Updated upstream
         isHit = false;
         earthQuakeSound.enabled = false;
+=======
+
+>>>>>>> Stashed changes
         StartCoroutine(Think());
     }
 
@@ -404,6 +414,7 @@ public class Boss : Enemy
 
                 S_rigid.transform.Rotate(Vector3.forward *180 * (index/((scaleCount-1))));
                 S_rigid.AddForce(dirVec * 12, ForceMode2D.Impulse);
+                scalesSound.Play();
             }
         }
         curShotDelay = 0;
@@ -439,8 +450,7 @@ public class Boss : Enemy
         if (isHit)
             yield break;
 
-
-        hitSound.enabled = true;
+        hitSound.Play();
         if (health > 0)
         {
             isHit = true;
@@ -457,7 +467,6 @@ public class Boss : Enemy
             }
             yield return new WaitForSeconds(0.3f);
 
-            hitSound.enabled = false;
             isHit = false;
             ReturnSprite(1f);
         }
@@ -469,10 +478,43 @@ public class Boss : Enemy
                 StopCoroutine(RollAttack());
                 StopCoroutine(RoarAttack());
                 StopCoroutine(JumpAttack());
+<<<<<<< Updated upstream
+=======
+                StopCoroutine(Think());
+
+>>>>>>> Stashed changes
                 anim.SetTrigger("doDie");
-                dieSound.enabled = true;
+                dieSound.Play();
                 isDie = true;
-                for(int index=0;index<21;index++)
+                for(int index=0;index<5;index++)
+                {
+
+                    Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    float ranPow = Random.Range(0.5f, 1.5f);
+                    gameManager.ShakeCam(ranPow, 0.09f);
+                    gameManager.Hit_Effect1(transform.position + ranVec_1, 0.5f);
+                    gameManager.Hit_Effect2(transform.position + ranVec_2, 0.5f);
+                    gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
+
+                    yield return new WaitForSeconds(0.6f);
+                }
+                for (int index = 0; index < 10; index++)
+                {
+
+                    Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_2 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    Vector3 ranVec_3 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+                    float ranPow = Random.Range(0.5f, 1.5f);
+                    gameManager.ShakeCam(ranPow, 0.09f);
+                    gameManager.Hit_Effect1(transform.position + ranVec_1, 0.5f);
+                    gameManager.Hit_Effect2(transform.position + ranVec_2, 0.5f);
+                    gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
+
+                    yield return new WaitForSeconds(0.3f);
+                }
+                for (int index = 0; index < 15; index++)
                 {
 
                     Vector3 ranVec_1 = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
@@ -485,7 +527,21 @@ public class Boss : Enemy
                     gameManager.Hit_Effect3(transform.position + ranVec_3, 0.5f);
 
                     yield return new WaitForSeconds(0.1f);
+
                 }
+                for (int index = 0; index < 40; index++)
+                {
+                    int ranPower = Random.Range(12, 18);
+                    Vector2 ranVec = new Vector2(Random.Range(-1f, 1f), 0);
+                    GameObject Item = objectManager.MakeObj("gold");
+                    Item.transform.position = transform.position;
+
+                    Rigidbody2D Item_Rigid = Item.GetComponent<Rigidbody2D>();
+                    Item_Rigid.AddForce(ranVec * 2 + Vector2.up * ranPower, ForceMode2D.Impulse);
+
+                }
+
+                yield break;
             }
 
             ReturnSprite(0.3f);

@@ -21,12 +21,16 @@ public class EliteEnemy : Enemy
 
     public AudioSource hitSound;
     public AudioSource dieSound;
+    public AudioSource digSound;
 
     public BoxCollider2D attack;
     public BoxCollider2D double_Attack;
     public BoxCollider2D dig;
     public GameObject Trigger;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -38,10 +42,13 @@ public class EliteEnemy : Enemy
 
         forward = new Vector2(speed, rigid.velocity.y).normalized;
         maxAttackDelay = Random.Range(0.7f, 1.3f);
+<<<<<<< Updated upstream
 
         hitSound.volume = 0.8f;
         dieSound.volume = 0.8f;
         
+=======
+>>>>>>> Stashed changes
     }
     //체력설정
 
@@ -92,13 +99,17 @@ public class EliteEnemy : Enemy
         {
             StopCoroutine(Attack());
             StopCoroutine(Skill());
+<<<<<<< Updated upstream
+=======
+            StopCoroutine(Think());
+>>>>>>> Stashed changes
         }
         dist = Vector2.Distance(player.transform.position, transform.position);
         MoveAnim();
         WatchCheck();
         Follow();
         Move();
-        Think();
+        StartCoroutine(Think());
         //GroundCheck();
         if (isDie || isAttack || !isStart||isSkill)
             rigid.velocity = new Vector2(0,rigid.velocity.y);
@@ -187,8 +198,10 @@ public class EliteEnemy : Enemy
     }
 
     //Attack&Hit
-    void Think()
+    IEnumerator Think()
     {
+        yield return null;
+
         if (dist < 2)
         {
             curAttackDelay += Time.deltaTime;
@@ -202,6 +215,7 @@ public class EliteEnemy : Enemy
         }
         else
             curSkillDelay += Time.deltaTime;
+
     }
     IEnumerator Attack()
     {
@@ -277,6 +291,8 @@ public class EliteEnemy : Enemy
         rigid.AddForce(Vector2.up * 40, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.1f);
 
+        digSound.Play();
+        gameManager.ShakeCam(0.6f,0.3f);
         spriteRenderer.color = new Color(1, 1, 1, 1);
         yield return new WaitForSeconds(0.4f);
 
@@ -293,7 +309,7 @@ public class EliteEnemy : Enemy
             yield break;
 
         isHit = true;
-        hitSound.enabled = true;
+        hitSound.Play();
         DamageLogic(dmg);
         ReturnSprite(0.5f);
 
@@ -302,9 +318,18 @@ public class EliteEnemy : Enemy
             //Dead Animation
             if (!isDie)
             {
+<<<<<<< Updated upstream
                 StopCoroutine(Attack());
                 StopCoroutine(Skill());
                 dieSound.enabled = true;
+=======
+
+                StopCoroutine(Attack());
+                StopCoroutine(Skill());
+                StopCoroutine(Think());
+
+                dieSound.Play();
+>>>>>>> Stashed changes
                 anim.SetTrigger("doDie");
                 isDie = true;
                 yield return new WaitForSeconds(0.8f);
@@ -382,7 +407,6 @@ public class EliteEnemy : Enemy
                 gameObject.SetActive(false);
                 gameManager.CreateBoss();
                 gameManager.OffEliteRoom();
-                dieSound.enabled = false;
                 yield break;
             }
             else
@@ -390,7 +414,6 @@ public class EliteEnemy : Enemy
         }
         yield return new WaitForSeconds(1f);
 
-        hitSound.enabled = false;
         isHit = false;
         ReturnSprite(1f);
     }

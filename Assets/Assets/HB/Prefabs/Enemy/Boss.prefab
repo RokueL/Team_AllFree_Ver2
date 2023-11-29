@@ -10,7 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3956735666571119836}
   - component: {fileID: 7476180058228774067}
+<<<<<<< Updated upstream
   - component: {fileID: 4808022129599705927}
+=======
+  - component: {fileID: 3110769041850672370}
+>>>>>>> Stashed changes
   m_Layer: 10
   m_Name: Rolling
   m_TagString: Boss
@@ -68,18 +72,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+<<<<<<< Updated upstream
 --- !u!82 &4808022129599705927
+=======
+--- !u!82 &3110769041850672370
+>>>>>>> Stashed changes
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034746043176600323}
+<<<<<<< Updated upstream
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f5f478129fdde49938410db9ec29de2b, type: 3}
   m_PlayOnAwake: 1
+=======
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f5f478129fdde49938410db9ec29de2b, type: 3}
+  m_PlayOnAwake: 0
+>>>>>>> Stashed changes
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -174,7 +190,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9134094845686465407}
   - component: {fileID: 8851524897925814191}
+<<<<<<< Updated upstream
   - component: {fileID: 6011318432478161336}
+=======
+  - component: {fileID: 6753243308412441041}
+>>>>>>> Stashed changes
   m_Layer: 10
   m_Name: Roar
   m_TagString: Boss
@@ -242,18 +262,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
+<<<<<<< Updated upstream
 --- !u!82 &6011318432478161336
+=======
+--- !u!82 &6753243308412441041
+>>>>>>> Stashed changes
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4856166252799617833}
+<<<<<<< Updated upstream
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 17cdd033e6c934b01a00d5f141ea4ad4, type: 3}
   m_PlayOnAwake: 1
+=======
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 17cdd033e6c934b01a00d5f141ea4ad4, type: 3}
+  m_PlayOnAwake: 0
+>>>>>>> Stashed changes
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -348,7 +380,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6951463849737703529}
   - component: {fileID: 8494323099393136398}
+<<<<<<< Updated upstream
   - component: {fileID: 9148750126345905585}
+=======
+  - component: {fileID: 4196449837763816954}
+>>>>>>> Stashed changes
   m_Layer: 10
   m_Name: EarthQuake
   m_TagString: Boss
@@ -416,18 +452,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7, y: 1}
   m_EdgeRadius: 0
+<<<<<<< Updated upstream
 --- !u!82 &9148750126345905585
+=======
+--- !u!82 &4196449837763816954
+>>>>>>> Stashed changes
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6034263957572179307}
+<<<<<<< Updated upstream
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8b48bb722c9b548949ce3a7fd404285d, type: 3}
   m_PlayOnAwake: 1
+=======
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8b48bb722c9b548949ce3a7fd404285d, type: 3}
+  m_PlayOnAwake: 0
+>>>>>>> Stashed changes
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -526,8 +574,14 @@ GameObject:
   - component: {fileID: 7830539211008222294}
   - component: {fileID: 2308057765052159895}
   - component: {fileID: 8175773494483863758}
+<<<<<<< Updated upstream
   - component: {fileID: 4554778417704871271}
   - component: {fileID: 8877950090214295434}
+=======
+  - component: {fileID: 3178989908106807335}
+  - component: {fileID: 730466128058695313}
+  - component: {fileID: 593685957059593026}
+>>>>>>> Stashed changes
   m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
@@ -718,11 +772,20 @@ MonoBehaviour:
   Rolling: {fileID: 7476180058228774067}
   EarthQuake: {fileID: 8494323099393136398}
   Roar: {fileID: 8851524897925814191}
+<<<<<<< Updated upstream
   hitSound: {fileID: 4554778417704871271}
   dieSound: {fileID: 8877950090214295434}
   rollSound: {fileID: 4808022129599705927}
   roarSound: {fileID: 6011318432478161336}
   earthQuakeSound: {fileID: 9148750126345905585}
+=======
+  hitSound: {fileID: 3178989908106807335}
+  dieSound: {fileID: 730466128058695313}
+  rollSound: {fileID: 3110769041850672370}
+  roarSound: {fileID: 6753243308412441041}
+  earthQuakeSound: {fileID: 4196449837763816954}
+  scalesSound: {fileID: 593685957059593026}
+>>>>>>> Stashed changes
   enemyScript: {fileID: 0}
   Trigger: {fileID: 0}
   roarReadyParticle: {fileID: 2297627011610688490}
@@ -747,18 +810,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< Updated upstream
 --- !u!82 &4554778417704871271
+=======
+--- !u!82 &3178989908106807335
+>>>>>>> Stashed changes
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8912161029435027743}
+<<<<<<< Updated upstream
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fe3f74bf552d24b4aa2d81a5749aec3b, type: 3}
   m_PlayOnAwake: 1
+=======
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fe3f74bf552d24b4aa2d81a5749aec3b, type: 3}
+  m_PlayOnAwake: 0
+>>>>>>> Stashed changes
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -843,18 +918,126 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+<<<<<<< Updated upstream
 --- !u!82 &8877950090214295434
+=======
+--- !u!82 &730466128058695313
+>>>>>>> Stashed changes
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8912161029435027743}
+<<<<<<< Updated upstream
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 119328952ba3b624d8964e6e2282f91a, type: 3}
   m_PlayOnAwake: 1
+=======
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 119328952ba3b624d8964e6e2282f91a, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &593685957059593026
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8912161029435027743}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ded648565c3b9d4499c466f0da500be3, type: 3}
+  m_PlayOnAwake: 0
+>>>>>>> Stashed changes
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

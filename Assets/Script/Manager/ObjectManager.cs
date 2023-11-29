@@ -115,7 +115,7 @@ public class ObjectManager : MonoBehaviour
         mouse = new GameObject[10];
         snake = new GameObject[10];
 
-        gold = new GameObject[60];
+        gold = new GameObject[150];
 
         rollCore = new GameObject[2];
         summonCore = new GameObject[2];

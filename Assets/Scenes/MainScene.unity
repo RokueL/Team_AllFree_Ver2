@@ -37009,6 +37009,11 @@ PrefabInstance:
       objectReference: {fileID: 112585319}
     - target: {fileID: 1391964168667550096, guid: 20d58c1b45b8f2744b3a72818385a368,
         type: 3}
+      propertyPath: EndPortalGam
+      value: 
+      objectReference: {fileID: 14035865}
+    - target: {fileID: 1391964168667550096, guid: 20d58c1b45b8f2744b3a72818385a368,
+        type: 3}
       propertyPath: InGameCanvas
       value: 
       objectReference: {fileID: 125320260}

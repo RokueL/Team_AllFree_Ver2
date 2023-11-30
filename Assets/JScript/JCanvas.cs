@@ -112,6 +112,9 @@ public class JCanvas : MonoBehaviour
     [Header("[게임 오브젝트]보스캔버스")]
     public GameObject BossCanvas;
     public Slider Bossslider;
+
+    [Header("[게임 오브젝트] 엔드 포탈")]
+    public GameObject EndPortalGam;
     
 
 
@@ -183,6 +186,11 @@ public class JCanvas : MonoBehaviour
 //==================================================================================
 //==================================================================================
 
+    public void PortalActive()
+    {
+        EndPortalGam.SetActive(true);
+    }
+    
     public void BossCanvasActive()
     {
         BossCanvas.GetComponent<CanvasGroup>().DOFade(1f, 3f);
@@ -195,11 +203,6 @@ public class JCanvas : MonoBehaviour
     public void BossHPBarSetting(float Max, float Cur)
     {
         Bossslider.value = Cur / Max;
-    }
-
-    public void OnActiveSetting()
-    {
-        
     }
     
 

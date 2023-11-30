@@ -1048,7 +1048,7 @@ public class Player : MonoBehaviour
 
         if(collision.gameObject.name=="EndPortal")
         {
-            //JCanvas.Instance.OnGameEnd();
+            UnityEngine.SceneManagement.SceneManager.LoadScene ("Scenes/EndScene");
             isStart = false;
             Debug.Log("EndPortal");
         }

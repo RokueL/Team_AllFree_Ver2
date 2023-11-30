@@ -705,6 +705,7 @@ public class Boss : Enemy
                 Rigidbody2D Item_Rigid = Item.GetComponent<Rigidbody2D>();
                 Item_Rigid.AddForce(ranVec * 2 + Vector2.up * 4, ForceMode2D.Impulse);
             }
+            JCanvas.Instance.PortalActive();
             JCanvas.Instance.BossCanvasUnActive();
         }
     }

@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
     }
     public void Normal()
     {
-        enemyScript.level = Enemy.Level.Easy; //Normal���ý� Easy���̵� ����
+        enemyScript.level = Enemy.Level.Easy;
     }
     public void Hard()
     {
@@ -261,9 +261,9 @@ public class GameManager : MonoBehaviour
     }
     public void PrintInfo()
     {
-        Debug.Log($"�����ھ�[{StateCoreIndex+1}] ���� ����:"+ (StateCoreIndex+1));
-        Debug.Log($"�����ھ�[{StateCoreIndex}] +���ݷ� �ɷ�ġ:" + coreInformation[StateCoreIndex].increaseDamage);
-        Debug.Log($"�����ھ�[{StateCoreIndex}] +ü�� �ɷ�ġ:" + coreInformation[StateCoreIndex].increaseHealth);
+        Debug.Log("스탯코어 갯수:"+ (StateCoreIndex+1));
+        Debug.Log($"스탯코어[{StateCoreIndex+1}] +데미지 증가:" + coreInformation[StateCoreIndex].increaseDamage);
+        Debug.Log($"스탯코어[{StateCoreIndex+1}] +체력 증가:" + coreInformation[StateCoreIndex].increaseHealth);
     }
     public void EquipCore()
     {
@@ -274,11 +274,13 @@ public class GameManager : MonoBehaviour
     }
 
     //����Ʈ
-    public void Ground_Effect(Vector3 target)
+    public void Ground_Effect(Vector3 target,float time)
     {
         GameObject ground_Effect = objectManager.MakeObj("ground_Effect");
         ParticleSystem tround_EffectLogic = ground_Effect.GetComponent<ParticleSystem>();
         tround_EffectLogic.Play();
+        ground_Effect.GetComponent<Effect>().time = time;
+
         ground_Effect.transform.position = target;
     }
     public void Spawn_Effect(Vector3 target,float time)

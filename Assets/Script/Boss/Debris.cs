@@ -16,7 +16,7 @@ public class Debris : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             gameObject.SetActive(false);
-            gameManager.Ground_Effect(transform.position+Vector3.down*1f);
+            gameManager.Ground_Effect(collision.bounds.ClosestPoint(transform.position), 0.5f);
         }
     }
 }

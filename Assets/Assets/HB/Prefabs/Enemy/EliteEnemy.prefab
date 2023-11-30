@@ -185,6 +185,8 @@ MonoBehaviour:
   type: 0
   maxdistance: 0
   mindistance: 0
+  curAttackDelay: 0
+  maxAttackDelay: 0
   dmg: 0
   health: 0
   maxHealth: 0
@@ -430,7 +432,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8b48bb722c9b548949ce3a7fd404285d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

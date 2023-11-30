@@ -117,6 +117,9 @@ public class JCanvas : MonoBehaviour
 
     void Awake()
     {
+        // 초기 사운드값 설정
+        SoundSetting(0.5f);
+
         // 인스턴스가 이미 존재하는지 확인하고, 존재하지 않는 경우에만 인스턴스 생성
         if (_instance != null && _instance != this)
         {

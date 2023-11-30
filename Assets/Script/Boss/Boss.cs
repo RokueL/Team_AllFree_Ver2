@@ -28,6 +28,7 @@ public class Boss : Enemy
 
     float rageScatchRatio;
     float rageRollingRatio;
+    float rageJumpRatio;
 
     float doReadyRoll;
 
@@ -68,7 +69,10 @@ public class Boss : Enemy
 
         normalScatchRatio = 7;
         rageScatchRatio = 4;
-        rageRollingRatio = 7;
+        rageRollingRatio = 6;
+        rageJumpRatio = 8;
+
+
         doReadyRoll = 5;
 
         rollingSpeed = 25;
@@ -108,8 +112,10 @@ public class Boss : Enemy
                     ScalesAttack();
                 }
                 if (rageState)
+                {
                     RageSprite();
-
+                    Heal();
+                }
             }
         }
         else if(isDie)
@@ -138,28 +144,6 @@ public class Boss : Enemy
         explosion_2Sound.volume = value;
 
     }
-    
-    //Start Setting
-    public IEnumerator Appear()
-    {
-        SoundSetting();
-        JCanvas.Instance.BossHPBarSetting(this.maxHealth, this.health);
-        JCanvas.Instance.BossCanvasActive();
-        
-        isAppear = true;
-        anim.SetTrigger("Roar");
-        earthQuakeSound.Play();
-        roarSound.Play();
-        gameManager.ShakeCam(1f,1f);
-        yield return new WaitForSeconds(1f);
-        
-        gameManager.DropDebris();
-        yield return new WaitForSeconds(2f);
-
-        isStart = true;
-
-        StartCoroutine(Think());
-    }
     IEnumerator LevelCheck()
     {
         yield return new WaitForSeconds(0.5f);
@@ -182,8 +166,8 @@ public class Boss : Enemy
         switch (level)
         {
             case Level.Easy:
-                health = 300;
-                maxHealth = 300;
+                health = 500;
+                maxHealth = 500;
                 dmg = 15;
                 rageGage = 70;
                 scaleCount = 9;
@@ -197,13 +181,34 @@ public class Boss : Enemy
                 health = 700;
                 maxHealth = 700;
                 dmg = 20;
-                rageGage = 70;
+                rageGage = 80;
                 scaleCount = 13;
                 break;
 
         }
     }
+    //Start Setting
+    public IEnumerator Appear()
+    {
+        SoundSetting();
+        JCanvas.Instance.BossHPBarSetting(this.maxHealth, this.health);
+        JCanvas.Instance.BossCanvasActive();
+        
+        isAppear = true;
+        anim.SetTrigger("Roar");
+        earthQuakeSound.Play();
+        roarSound.Play();
+        gameManager.ShakeCam(1f,1f);
+        yield return new WaitForSeconds(1f);
+        
+        gameManager.DropDebris();
+        yield return new WaitForSeconds(2f);
 
+        isStart = true;
+
+        StartCoroutine(Think());
+    }
+   
     //Move
     void Move()
     {
@@ -234,12 +239,14 @@ public class Boss : Enemy
         }
         else
         {
-            if (ranPattern < rageScatchRatio)         //40%
+            if (ranPattern < rageScatchRatio)         //30%
                 patternIndex = 0;
-            else if(ranPattern< rageRollingRatio)       //30%
+            else if (ranPattern < rageRollingRatio)       //30%
                 patternIndex = 1;
-            else                        //30%
+            else if (ranPattern < rageJumpRatio)                        //30%
                 patternIndex = 2;
+            else
+                patternIndex = 3;
         }
     }
     IEnumerator Think()
@@ -332,13 +339,14 @@ public class Boss : Enemy
     //Scratch Attack
     IEnumerator RoarAttack()
     {
+        if (isDie)
+            yield break;
+
         isHit = true;
         isAttack = true;
         roarReadyParticle.SetActive(true);
         anim.SetBool("isWalk", false);
         roarSound.Play();
-        yield return new WaitForSeconds(0.5f);
-
 
         yield return new WaitForSeconds(PatternDelay);
 
@@ -350,10 +358,8 @@ public class Boss : Enemy
         yield return new WaitForSeconds(0.1f);
 
         Roar.enabled = false;
-        yield return new WaitForSeconds(PatternDelay);
-
         isHit = false;
-        roarSound.Stop();
+        yield return new WaitForSeconds(PatternDelay);
 
         StartCoroutine(Think());
     }
@@ -361,6 +367,8 @@ public class Boss : Enemy
     //Jump Attack
     IEnumerator JumpAttack()
     {
+        if (isDie)
+            yield break;
         isHit = true;
         isAttack = true;
         float Quakedmg=15;
@@ -393,7 +401,8 @@ public class Boss : Enemy
             return;
 
         int ran = Random.Range(0, 10);
-
+        int ranScalesCount = Random.Range(9, 15);
+        scaleCount = ranScalesCount;
         if (ran < 3)   //30%
         {
             for (float index = 0; index < scaleCount; index++)
@@ -426,7 +435,25 @@ public class Boss : Enemy
         PatternDelay = 1.3f;
         speed *= 1.25f ;
     }
+    IEnumerator Heal()
+    {
+        isAttack = true;
+        yield return null;
 
+        for(int index=0;index<60;index++)
+        {
+            if (isDie)
+                yield break;
+
+            health = health + (maxHealth * 0.008f);
+            JCanvas.Instance.BossHPBarSetting(this.maxHealth, this.health);
+            yield return new WaitForSeconds(0.1f);
+        }
+        isAttack = false;
+        yield return null;
+
+        StartCoroutine(Think());
+    }
     //Rolling Stun
     void Stun()
     {
@@ -454,7 +481,7 @@ public class Boss : Enemy
             if (!rageState)
                 DamageLogic(dmg);
             else if(rageState)
-                DamageLogic(dmg*2);
+                DamageLogic(dmg);
             ReturnSprite(0.4f);
 
             //Rolling Animation

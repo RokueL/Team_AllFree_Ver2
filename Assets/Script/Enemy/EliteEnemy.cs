@@ -36,10 +36,10 @@ public class EliteEnemy : Enemy
         anim = GetComponent<Animator>();
 
         speed = 1.5f;
-        maxSkillDelay = 6f;
+        maxSkillDelay = 5.5f;
 
         forward = new Vector2(speed, rigid.velocity.y).normalized;
-        maxAttackDelay = Random.Range(0.7f, 1.3f);
+        maxAttackDelay = Random.Range(0.4f, 0.8f);
     }
     //ü�¼���
 
@@ -61,8 +61,8 @@ public class EliteEnemy : Enemy
         {
             case Level.Easy:
                 dmg = 12;
-                maxHealth = 100;
-                health = 100;
+                maxHealth = 200;
+                health = 200;
                 isDie = false;
                 isFollow = false;
                 isAggro = false;
@@ -75,8 +75,8 @@ public class EliteEnemy : Enemy
 
             case Level.Hard:
                 dmg = 18;
-                maxHealth = 100;
-                health = 100;
+                maxHealth = 400;
+                health = 400;
                 isDie = false;
                 isFollow = false;
                 isAggro = false;
@@ -84,7 +84,7 @@ public class EliteEnemy : Enemy
                 break;
         }
     }
-    void FixedUpdate()
+    void Update()
     {
         if(isDie)
         {
@@ -126,6 +126,7 @@ public class EliteEnemy : Enemy
         yield return new WaitForSeconds(0.8f);
 
         gameManager.ShakeCam(1f,0.4f);
+        digSound.Play();
         yield return new WaitForSeconds(0.5f);
 
         Physics2D.IgnoreLayerCollision(8, 9, false);
@@ -253,10 +254,10 @@ public class EliteEnemy : Enemy
 
                 yield return new WaitForSeconds(0.1f);
 
-                attSound.Play();
                 yield return new WaitForSeconds(0.4f);
 
                 isAttack = false;
+                attSound.Play();
                 double_Attack.enabled = false;
 
                 yield return new WaitForSeconds(0.5f);

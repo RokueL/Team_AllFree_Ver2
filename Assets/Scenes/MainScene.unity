@@ -11369,11 +11369,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1012300763927738, guid: 5eb26acf8c7982b4a9a29d079a0ed6da, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1012300763927738, guid: 5eb26acf8c7982b4a9a29d079a0ed6da, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 1572935054673878, guid: 5eb26acf8c7982b4a9a29d079a0ed6da, type: 3}
       propertyPath: m_Name
@@ -11572,6 +11572,8 @@ MonoBehaviour:
   type: 0
   maxdistance: 0
   mindistance: 0
+  curAttackDelay: 0
+  maxAttackDelay: 0
   dmg: 0
   health: 0
   maxHealth: 0
@@ -11622,7 +11624,7 @@ Animator:
   m_GameObject: {fileID: 653948984}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2732eaedde65a5e48b375fce37d0872b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5a7db5973855da1479b41e88e284ef89, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -36917,6 +36919,11 @@ PrefabInstance:
       propertyPath: PointEnter
       value: 
       objectReference: {fileID: 112585316}
+    - target: {fileID: 1391964168667550096, guid: 20d58c1b45b8f2744b3a72818385a368,
+        type: 3}
+      propertyPath: SoundValue
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1391964168667550096, guid: 20d58c1b45b8f2744b3a72818385a368,
         type: 3}
       propertyPath: InGameHPBar

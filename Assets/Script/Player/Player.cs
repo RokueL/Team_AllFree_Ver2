@@ -149,7 +149,6 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -249,6 +248,7 @@ public class Player : MonoBehaviour
         rigid.velocity = new Vector2(Move_Axis * speed, rigid.velocity.y);
         if (Move_Axis != 0)
         {
+            anim.SetBool("isWalk", true);
             walkSound.enabled = true;
             if (Move_Axis > 0)
             {
@@ -272,7 +272,10 @@ public class Player : MonoBehaviour
             }
         }
         else
+        {
+            anim.SetBool("isWalk", false);
             walkSound.enabled = false;
+        }
 
     }
     void Stop()

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8578500637984881235}
   - component: {fileID: 6157252990214144520}
   - component: {fileID: 5284497148859083571}
+  - component: {fileID: -9077691177372667324}
   m_Layer: 0
   m_Name: Crash
   m_TagString: Untagged
@@ -4899,6 +4900,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-9077691177372667324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883830244708611873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a0e8461d0fbab448d1b376729d2df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 0
 --- !u!1001 &3072676245780927759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4907,6 +4921,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8578500637984881235}
     m_Modifications:
+    - target: {fileID: 52952201501549786, guid: 3407e378c048bb5438424b28c7740b48,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 52952201501549786, guid: 3407e378c048bb5438424b28c7740b48,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1164929265809320628, guid: 3407e378c048bb5438424b28c7740b48,
         type: 3}
       propertyPath: looping
@@ -4916,6 +4940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2594995196539859584, guid: 3407e378c048bb5438424b28c7740b48,
         type: 3}
@@ -5020,6 +5049,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2349394997441826322, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
+    - {fileID: 7549210112660318882, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3407e378c048bb5438424b28c7740b48, type: 3}

@@ -76,8 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2429800542238928213, guid: c11cc5d1463424f498dc914ceced191f, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: -2429800542238928213, guid: c11cc5d1463424f498dc914ceced191f,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -198,6 +199,8 @@ MonoBehaviour:
   type: 0
   maxdistance: 0
   mindistance: 0
+  curAttackDelay: 0
+  maxAttackDelay: 0
   dmg: 0
   health: 0
   maxHealth: 0

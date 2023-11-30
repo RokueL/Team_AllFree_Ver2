@@ -109,6 +109,12 @@ public class FollowCat : MonoBehaviour
             spriteRenderer.flipX = true;
             attack.offset = new Vector2(-0.4f, 0);
         }
+
+        if (followRigid.velocity.x != 0)
+            Followanim.SetBool("isWalk", true);
+        else
+            Followanim.SetBool("isWalk", false);
+
     }
     void Watch()
     {

@@ -15,8 +15,8 @@ public class Enemy : MonoBehaviour
 
     public float maxdistance;
     public float mindistance;
-    protected float curAttackDelay;
-    protected float maxAttackDelay;
+    public float curAttackDelay;
+    public float maxAttackDelay;
     protected float curAggroTime;
     protected float maxAggroTime;
     public  float dmg;
@@ -133,7 +133,7 @@ public class Enemy : MonoBehaviour
                         health = health - (dmg * 0.5f);
                         break;
                     case Player.Att_Type.Power:
-                        health = health - (dmg * 1.5f);
+                        health = health - (dmg * 1.2f);
                         break;
                     case Player.Att_Type.Sharp:
                         health = health - (dmg * 0.5f);

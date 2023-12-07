@@ -154,8 +154,8 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         //�ִ�ü��&��üü��
-        maxLife = 150;
-        curLife = 150;
+        maxLife = 200;
+        curLife = 200;
 
         //��Ÿ��
         maxCoolDown = 0;
@@ -167,6 +167,7 @@ public class Player : MonoBehaviour
         //���ݷ�&�ӵ�&������ �ӵ�
         dmg = 15;
         speed = 5;
+        jumpPower = 13f;
         roll_Speed = speed;
 
         //���ݼӵ�&�ִ뽺ų�ð�
@@ -541,7 +542,7 @@ public class Player : MonoBehaviour
             coreChangeParticle.SetActive(true);
             weaponChangeSound.Play();
             int num;
-            //4�� �����
+            //4개 장착시
             if (equipCount == 4)
             {
                 switch (skill_Type)
@@ -566,7 +567,7 @@ public class Player : MonoBehaviour
                         break;
                 }
             }
-            //3�� �����
+            //3개 장착시
             else if (equipCount == 3)
             {
                 num = Equip_Core_3();
@@ -650,7 +651,7 @@ public class Player : MonoBehaviour
                         break;
                 }
             }
-            //2�� �����
+            //2개 장착시
             else if (equipCount == 2)
             {
                 num = Equip_Core_2();
@@ -862,7 +863,6 @@ public class Player : MonoBehaviour
 
         yield return null;
         curLife += 100;
-        maxLife += 100;
         healingParticle.SetActive(true);
         healSound.Play();
 

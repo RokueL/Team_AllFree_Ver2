@@ -39,7 +39,7 @@ public class EliteEnemy : Enemy
         maxSkillDelay = 5.5f;
 
         forward = new Vector2(speed, rigid.velocity.y).normalized;
-        maxAttackDelay = Random.Range(0.4f, 0.8f);
+        maxAttackDelay = Random.Range(0.8f, 1.2f);
     }
     //ü�¼���
 
@@ -123,7 +123,7 @@ public class EliteEnemy : Enemy
     {
         SoundSetting();
         Physics2D.IgnoreLayerCollision(8, 9, true);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.6f);
 
         gameManager.ShakeCam(1f,0.4f);
         digSound.Play();

@@ -59,6 +59,7 @@ public class Boss : Enemy
     public AudioSource scalesSound;
     public AudioSource explosion_1Sound;
     public AudioSource explosion_2Sound;
+    public AudioSource roarExploSound;
 
     public Enemy enemyScript;
     public GameObject Trigger;
@@ -77,7 +78,7 @@ public class Boss : Enemy
 
         rollingSpeed = 25;
         speed = 1;
-        maxShotDelay = 0.5f;
+        maxShotDelay = 1.0f;
 
         isDie = false;
 
@@ -90,10 +91,12 @@ public class Boss : Enemy
     {
         StartCoroutine(LevelCheck());
     }
-    void FixedUpdate()
+    void Update()
     {
+        Cheat();
         if (!isDie)
         {
+            
             dist = Vector2.Distance(player.transform.position, transform.position);
 
             Follow();
@@ -131,6 +134,11 @@ public class Boss : Enemy
             StartCoroutine(Appear());
     }
 
+    void Cheat()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+            StartCoroutine(OnHit(1000));
+    }
     public void SoundSetting()
     {
         float value = JCanvas.Instance.SoundValue;
@@ -142,6 +150,7 @@ public class Boss : Enemy
         scalesSound.volume = value;
         explosion_1Sound.volume = value;
         explosion_2Sound.volume = value;
+        roarExploSound.volume = value;
 
     }
     IEnumerator LevelCheck()
@@ -265,10 +274,10 @@ public class Boss : Enemy
         {
             isAttack = true;
             rageState = true;
-            yield return new WaitForSeconds(3);
+            StartCoroutine( RoarAttack());
+            yield return new WaitForSeconds((PatternDelay*2)+1);
 
             Rage();
-            StartCoroutine(Think());
             yield break;
         }
         RandomPattern();
@@ -354,6 +363,7 @@ public class Boss : Enemy
         anim.SetTrigger("Roar");
         gameManager.Roar_Effect(transform.position,0.5f);
         Roar.enabled = true;
+        roarExploSound.Play();
 
         yield return new WaitForSeconds(0.1f);
 
